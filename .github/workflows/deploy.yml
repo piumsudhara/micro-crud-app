@@ -1,0 +1,74 @@
+name: Deploy to ECR and EKS
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: ap-southeast-1
+  ECR_BACKEND_REPOSITORY: microcrud-backend
+  ECR_FRONTEND_REPOSITORY: microcrud-frontend
+  ECR_REGISTRY_USERNAME: ${{ secrets.ECR_REGISTRY_USERNAME }}
+  ECR_REGISTRY_PASSWORD: ${{ secrets.ECR_REGISTRY_PASSWORD }}
+  # EKS_CLUSTER_NAME: microcrud
+  # NAMESPACE: default
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Configure Docker credentials
+        run: |
+          echo "$ECR_REGISTRY_PASSWORD" | docker login --username "$ECR_REGISTRY_USERNAME" --password-stdin
+
+      # - name: Build and push Backend Docker image
+      #   run: |
+      #     cd backend
+      #     docker build -t $ECR_BACKEND_REPOSITORY:latest .
+      #     docker tag $ECR_BACKEND_REPOSITORY:latest $ECR_BACKEND_REPOSITORY:${{ github.sha }}
+      #     docker push $ECR_BACKEND_REPOSITORY:${{ github.sha }}
+
+      # - name: Build and push Frontend Docker image
+      #   run: |
+      #     cd frontend
+      #     docker build -t $ECR_FRONTEND_REPOSITORY:latest .
+      #     docker tag $ECR_FRONTEND_REPOSITORY:latest $ECR_FRONTEND_REPOSITORY:${{ github.sha }}
+      #     docker push $ECR_FRONTEND_REPOSITORY:${{ github.sha }}
+
+      # - name: Install and configure AWS CLI and kubectl
+      #   run: |
+      #     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      #     unzip awscliv2.zip
+      #     sudo ./aws/install
+      #     sudo apt-get install -y apt-transport-https gnupg2 curl
+      #     curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+      #     echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+      #     sudo apt-get update
+      #     sudo apt-get install -y kubectl
+
+      # - name: Configure kubectl
+      #   run: |
+      #     mkdir -p ~/.kube
+      #     echo "$KUBECONFIG" | base64 --decode > ~/.kube/config
+
+      # - name: Deploy Backend to EKS
+      #   run: |
+      #     kubectl apply -f backend/kubernetes/  
+      #     kubectl apply -f backend/kubernetes/service.yaml
+
+      # - name: Deploy Frontend to EKS
+      #   run: |
+      #     kubectl apply -f frontend/kubernetes/
+      #     kubectl apply -f frontend/kubernetes/service.yaml  # Replace with the path to your Frontend Kubernetes service file
