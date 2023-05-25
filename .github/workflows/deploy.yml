@@ -9,8 +9,6 @@ env:
   AWS_REGION: ap-southeast-1
   ECR_BACKEND_REPOSITORY: backend
   ECR_FRONTEND_REPOSITORY: frontend
-  # ECR_REGISTRY_USERNAME: ${{ secrets.ECR_REGISTRY_USERNAME }}
-  # ECR_REGISTRY_PASSWORD: ${{ secrets.ECR_REGISTRY_PASSWORD }}
   # EKS_CLUSTER_NAME: microcrud
   # NAMESPACE: default
 
