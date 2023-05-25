@@ -9,8 +9,8 @@ env:
   AWS_REGION: ap-southeast-1
   ECR_BACKEND_REPOSITORY: microcrud-backend
   ECR_FRONTEND_REPOSITORY: microcrud-frontend
-  ECR_REGISTRY_USERNAME: ${{ secrets.ECR_REGISTRY_USERNAME }}
-  ECR_REGISTRY_PASSWORD: ${{ secrets.ECR_REGISTRY_PASSWORD }}
+  # ECR_REGISTRY_USERNAME: ${{ secrets.ECR_REGISTRY_USERNAME }}
+  # ECR_REGISTRY_PASSWORD: ${{ secrets.ECR_REGISTRY_PASSWORD }}
   # EKS_CLUSTER_NAME: microcrud
   # NAMESPACE: default
 
@@ -29,9 +29,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Configure Docker credentials
-        run: |
-          echo "$ECR_REGISTRY_PASSWORD" | docker login --username "$ECR_REGISTRY_USERNAME" --password-stdin
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      # - name: Configure Docker credentials
+      #   run: |
+      #     echo "$ECR_REGISTRY_PASSWORD" | docker login --username "$ECR_REGISTRY_USERNAME" --password-stdin
 
       # - name: Build and push Backend Docker image
       #   run: |
