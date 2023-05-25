@@ -43,6 +43,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
+          cd frontend
           docker build -t $ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:latest
 
