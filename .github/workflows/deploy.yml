@@ -7,8 +7,8 @@ on:
 
 env:
   AWS_REGION: ap-southeast-1
-  ECR_BACKEND_REPOSITORY: microcrud-backend
-  ECR_FRONTEND_REPOSITORY: microcrud-frontend
+  ECR_BACKEND_REPOSITORY: backend
+  ECR_FRONTEND_REPOSITORY: frontend
   # ECR_REGISTRY_USERNAME: ${{ secrets.ECR_REGISTRY_USERNAME }}
   # ECR_REGISTRY_PASSWORD: ${{ secrets.ECR_REGISTRY_PASSWORD }}
   # EKS_CLUSTER_NAME: microcrud
@@ -40,7 +40,8 @@ jobs:
           IMAGE_TAG: latest
         run: |
           cd backend
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY .
+          docker tag $ECR_BACKEND_REPOSITORY:latest $ECR_BACKEND_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       # - name: Build and push Frontend Docker image
