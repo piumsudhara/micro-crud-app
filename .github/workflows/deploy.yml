@@ -31,7 +31,7 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@aaf69d68aa3fb14c1d5a6be9ac61fe15b48453a2
 
-      - name: Build, tag, and push image to Amazon ECR
+      - name: Build, Tag, and Push Backend Image to AWS ECR
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -40,12 +40,11 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:latest
 
-      # - name: Build and push Frontend Docker image
-      #   run: |
-      #     cd frontend
-      #     docker build -t $ECR_FRONTEND_REPOSITORY:latest .
-      #     docker tag $ECR_FRONTEND_REPOSITORY:latest $ECR_FRONTEND_REPOSITORY:${{ github.sha }}
-      #     docker push $ECR_FRONTEND_REPOSITORY:${{ github.sha }}
+      - name: Build, Tag, and Push Frontend Image to AWS ECR
+        run: |
+          cd frontend
+          docker build -t $ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:latest .
+          docker push $ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:latest
 
       # - name: Install and configure AWS CLI and kubectl
       #   run: |
