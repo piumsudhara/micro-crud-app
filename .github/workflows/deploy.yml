@@ -38,7 +38,7 @@ jobs:
         run: |
           cd backend
           docker build -t $ECR_BACKEND_REPOSITORY:latest .
-          docker push $ECR_BACKEND_REPOSITORY:latest
+          docker push $ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:latest
 
       # - name: Build and push Frontend Docker image
       #   run: |
