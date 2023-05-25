@@ -39,6 +39,7 @@ jobs:
           cd backend
           docker build -t $ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:latest
+          cd ..
 
       - name: Build, Tag, and Push Frontend Image to AWS ECR
         id: build-image2
