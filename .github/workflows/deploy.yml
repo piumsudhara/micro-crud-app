@@ -41,6 +41,9 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:latest
 
       - name: Build, Tag, and Push Frontend Image to AWS ECR
+        id: build-image2
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
           cd frontend
           docker build -t $ECR_REGISTRY/$ECR_FRONTEND_REPOSITORY:latest .
