@@ -17,10 +17,3 @@ spec:
           image: 651010102653.dkr.ecr.ap-southeast-1.amazonaws.com/backend:latest
           ports:
             - containerPort: 5000
-          resources:
-            limits:
-              cpu: "0.5" # Limit the CPU usage to 0.5 cores
-              memory: "512Mi" # Limit the memory usage to 512 MiB
-            requests:
-              cpu: "0.1" # Request 0.1 cores of CPU
-              memory: "128Mi" # Request 128 MiB of memory
