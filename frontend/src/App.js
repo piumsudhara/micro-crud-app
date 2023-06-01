@@ -15,7 +15,7 @@ const App = () => {
 
   const fetchBooks = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/books');
+      const response = await axios.get('http://backend-service.default.svc.cluster.local:5000/books');
       setBooks(response.data);
     } catch (error) {
       console.error('Error fetching books: ', error);
@@ -24,7 +24,7 @@ const App = () => {
 
   const addBook = async () => {
     try {
-      await axios.post('http://localhost:5000/books', { title, author, price });
+      await axios.post('http://backend-service.default.svc.cluster.local:5000/books', { title, author, price });
       fetchBooks();
       setTitle('');
       setAuthor('');
@@ -36,7 +36,7 @@ const App = () => {
 
   const updateBook = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/books/${id}`, { title, author, price });
+      await axios.put(`http://backend-service.default.svc.cluster.local:5000/books/${id}`, { title, author, price });
       fetchBooks();
       setTitle('');
       setAuthor('');
@@ -48,7 +48,7 @@ const App = () => {
 
   const deleteBook = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/books/${id}`);
+      await axios.delete(`http://backend-service.default.svc.cluster.local:5000/books/${id}`);
       fetchBooks();
     } catch (error) {
       console.error('Error deleting book: ', error);
