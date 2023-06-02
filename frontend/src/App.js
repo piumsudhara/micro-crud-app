@@ -15,7 +15,7 @@ const App = () => {
 
   const fetchBooks = async () => {
     try {
-      const response = await axios.get('a0c2c5feb04de4db79b2a758469fc93f-1179602126.ap-southeast-1.elb.amazonaws.com:5000/books');
+      const response = await axios.get('http://a0c2c5feb04de4db79b2a758469fc93f-1179602126.ap-southeast-1.elb.amazonaws.com:5000/books');
       setBooks(response.data);
     } catch (error) {
       console.error('Error fetching books: ', error);
@@ -24,7 +24,7 @@ const App = () => {
 
   const addBook = async () => {
     try {
-      await axios.post('a0c2c5feb04de4db79b2a758469fc93f-1179602126.ap-southeast-1.elb.amazonaws.com:5000/books', { title, author, price });
+      await axios.post('http://a0c2c5feb04de4db79b2a758469fc93f-1179602126.ap-southeast-1.elb.amazonaws.com:5000/books', { title, author, price });
       fetchBooks();
       setTitle('');
       setAuthor('');
@@ -36,7 +36,7 @@ const App = () => {
 
   const updateBook = async (id) => {
     try {
-      await axios.put(`a0c2c5feb04de4db79b2a758469fc93f-1179602126.ap-southeast-1.elb.amazonaws.com:5000/books/${id}`, { title, author, price });
+      await axios.put(`http://a0c2c5feb04de4db79b2a758469fc93f-1179602126.ap-southeast-1.elb.amazonaws.com:5000/books/${id}`, { title, author, price });
       fetchBooks();
       setTitle('');
       setAuthor('');
@@ -48,7 +48,7 @@ const App = () => {
 
   const deleteBook = async (id) => {
     try {
-      await axios.delete(`a0c2c5feb04de4db79b2a758469fc93f-1179602126.ap-southeast-1.elb.amazonaws.com:5000/books/${id}`);
+      await axios.delete(`http://a0c2c5feb04de4db79b2a758469fc93f-1179602126.ap-southeast-1.elb.amazonaws.com:5000/books/${id}`);
       fetchBooks();
     } catch (error) {
       console.error('Error deleting book: ', error);
