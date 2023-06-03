@@ -1,4 +1,0 @@
-apiVersion: v1
-name: frontend
-version: 1.0.0
-description: Frontend application chart
