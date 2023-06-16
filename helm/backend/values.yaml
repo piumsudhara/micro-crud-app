@@ -1,0 +1,27 @@
+replicaCount: 5
+image:
+  pullPolicy: IfNotPresent
+  repository: 651010102653.dkr.ecr.ap-southeast-1.amazonaws.com/backend
+  version: latest
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+serviceAccount:
+  create: false
+  name:
+podSecurityContext: {}
+securityContext: {}
+service:
+  type: LoadBalancer
+  port: 5000
+ingress:
+  enabled: false
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths: []
+  tls: []
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
