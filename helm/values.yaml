@@ -2,7 +2,7 @@ replicaCount: 5
 image:
   pullPolicy: IfNotPresent
   repository: 651010102653.dkr.ecr.ap-southeast-1.amazonaws.com/frontend
-  version: main-c7c2c79
+  version: latest
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
